@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для самой особенной ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ffafbd;
+            --secondary-pink: #ffc3a0;
+            --text-color: #5a5a5a;
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #fff5f7;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Фоновые сердечки */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Секция 1: Приветствие */
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #d63384;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Интерактивная игра с кнопками */
+        .game-container {
+            position: relative;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            min-width: 300px;
+            min-height: 200px;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            background-color: #ff758f;
+        }
+
+        #btn-no {
+            background-color: #eeeeee;
+            color: #888;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+
+        /* Секция причин */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin-top: 40px;
+        }
+
+        .reason-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid #ffeef2;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 175, 189, 0.3);
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Скрытие/Появление контента */
+        .hidden { display: none; }
+
+        .success-message {
+            animation: fadeIn 1s forwards;
+        }
+
+        .success-message h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #ff4d6d;
+        }
+
+        footer {
+            padding: 40px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas class="heart-bg" id="heartCanvas"></canvas>
+
+    <!-- Главная страница -->
+    <section id="hero">
+        <h1>Привет, любимая! ✨</h1>
+        <p class="subtitle">Я создал это маленькое место в интернете только для того, чтобы напомнить тебе, как сильно я тебя ценю.</p>
+        <div style="margin-top: 50px;">
+            <p>Листай ниже...</p>
+            <div style="font-size: 2rem; animation: bounce 2s infinite;">↓</div>
+        </div>
+    </section>
+
+    <!-- Секция с игрой -->
+    <section id="question-section">
+        <div class="game-container" id="main-box">
+            <h2 id="question-text">Ты меня любишь? 🥺</h2>
+            <div class="btn-container" id="btn-wrap">
+                <button class="btn btn-yes" onclick="showLove()">Да!</button>
+                <button class="btn" id="btn-no">Нет</button>
+            </div>
+        </div>
+
+        <div id="success-content" class="hidden success-message">
+            <h2>Я так и знал! ❤️</h2>
+            <p>Моя любовь к тебе бесконечна...</p>
+            <div class="reasons-grid">
+                <div class="reason-card"><h3>Твоя улыбка</h3><p>Она освещает даже самый пасмурный день.</p></div>
+                <div class="reason-card"><h3>Твоя доброта</h3><p>Ты делаешь этот мир лучше просто тем, что ты есть.</p></div>
+                <div class="reason-card"><h3>Твой смех</h3><p>Самый лучший звук во всей вселенной.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        Сделано с ❤️ специально для тебя
+    </footer>
+
+    <script>
+        // 1. Логика убегающей кнопки
+        const noBtn = document.getElementById('btn-no');
+        const container = document.getElementById('question-section');
+
+        const moveButton = () => {
+            // Вычисляем случайные координаты внутри видимой области
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('click', moveButton); // Для мобилок
+
+        // 2. Логика нажатия "Да"
+        function showLove() {
+            document.getElementById('main-box').classList.add('hidden');
+            document.getElementById('success-content').classList.remove('hidden');
+            startHearts();
+        }
+
+        // 3. Анимация летающих сердечек на фоне
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Heart {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 15 + 5;
+                this.speed = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -20) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 175, 189, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.bezierCurveTo(this.x - this.size/2, this.y - this.size/2, this.x - this.size, this.y + this.size/3, this.x, this.y + this.size);
+                ctx.bezierCurveTo(this.x + this.size, this.y + this.size/3, this.x + this.size/2, this.y - this.size/2, this.x, this.y);
+                ctx.fill();
+            }
+        }
+
+        function initHearts() {
+            for(let i = 0; i < 30; i++) hearts.push(new Heart());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => {
+                h.update();
+                h.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        initHearts();
+        animate();
+
+        // 4. Дополнительный эффект при нажатии "Да"
+        function startHearts() {
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    hearts.push(new Heart());
+                }, i * 100);
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+    </style>
+</body>
+</html>
